@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전쟁 카드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    body { font-family: 'Pretendard', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-between p-4 md:p-8">
+
+  <!-- Header -->
+  <header class="w-full max-w-4xl text-center my-4">
+    <h1 class="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">전쟁 카드</h1>
+    <p class="text-slate-500 mt-2 text-sm md:text-base">버튼을 누르면 해당 번호의 정답이 중앙에 크게 표시됩니다.</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full max-w-4xl flex flex-col items-center gap-8 my-auto">
+    
+    <!-- Answer Display Card -->
+    <div class="w-full bg-white rounded-3xl border-2 border-slate-200 shadow-xl p-8 md:p-12 text-center min-h-[220px] flex flex-col items-center justify-center transition-all duration-300">
+      <div id="card-label" class="text-sm md:text-base font-bold text-indigo-600 bg-indigo-50 px-4 py-1.5 rounded-full mb-3">
+        버튼을 선택하세요
+      </div>
+      <div id="answer-display" class="text-3xl md:text-5xl font-extrabold text-slate-800 leading-relaxed break-keep">
+        ?
+      </div>
+    </div>
+
+    <!-- 1 to 30 Grid Buttons -->
+    <div class="w-full bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+      <div class="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-10 gap-2.5">
+        <script>
+          const answers = [
+            "10월 9일", "8월 15일", "14개", "숭례문(남대문)", "닐 암스트롱",
+            "4", "3", "2", "3", "1",
+            "4", "이성계", "허준", "을미사변", "1910~1945년(35년)",
+            "3.1운동", "궁예", "그리스", "콜로세움", "하지",
+            "피부", "4", "약 30만km", "사건의 지평선", "축구",
+            "빨강,노랑,파랑", "마지노선", "파랑,노랑,검정,초록,빨강", "진공", "1"
+          ];
+
+          for (let i = 1; i <= 30; i++) {
+            document.write(`
+              <button 
+                id="btn-${i}"
+                onclick="showAnswer(${i})"
+                class="num-btn aspect-square bg-slate-100 hover:bg-indigo-600 hover:text-white text-slate-700 font-bold text-lg md:text-xl rounded-2xl transition-all duration-200 flex items-center justify-center border border-slate-200 shadow-sm active:scale-95"
+              >
+                ${i}
+              </button>
+            `);
+          }
+
+          function showAnswer(num) {
+            document.querySelectorAll('.num-btn').forEach(btn => {
+              btn.classList.remove('bg-indigo-600', 'text-white');
+              btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            
+            const activeBtn = document.getElementById(`btn-${num}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+            activeBtn.classList.add('bg-indigo-600', 'text-white');
+
+            document.getElementById('card-label').innerText = `${num}번 정답`;
+            document.getElementById('answer-display').innerText = answers[num - 1];
+          }
+        </script>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-slate-400 text-xs my-4">
+    전쟁 카드 정답 확인 시스템
+  </footer>
+
+</body>
+</html>
